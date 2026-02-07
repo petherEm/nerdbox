@@ -1,19 +1,43 @@
 import { generateText } from "ai";
 import { inngest } from "./client";
 import { anthropic } from "@ai-sdk/anthropic";
+import { firecrawl } from "@/lib/firecrawl";
+
+
+const URL_REGEX = /(https?:\/\/[^\s]+)/g;
 
 export const demoGenerate = inngest.createFunction(
   { id: "demo-generate" },
   { event: "demo/generate" },
-  async ({ step }) => {
-    step.run("generate text", async () => {
-      const response = await generateText({
-        model: anthropic("claude-sonnet-4-5"),
-        prompt:
-          "Write a vegetarian recipe that includes mushrooms and is suitable for a weeknight dinner.",
-      });
+  async ({ event, step }) => {
 
-      return response;
+    const { prompt } = event.data as { prompt: string };
+
+    const urls = await step.run("extract urls", async () => {
+      return prompt.match(URL_REGEX) || [];
+    }) as string[];
+
+    const scrapedContent = await step.run("scrape-urls", async() => {
+      const results = await Promise.all(
+        urls.map(async (url) => {
+          // Simulate scraping the URL
+          const result = await firecrawl.scrape(
+            url,
+            { formats: ["markdown"]}
+          )
+          return result.markdown ?? null;
+        }),
+      );
+      return results.filter(Boolean).join("\n\n");
+    });
+
+    const finalPrompt = scrapedContent ? `Context: ${scrapedContent}\n\nQuestion: ${prompt}` : prompt;
+
+    await step.run("generate text", async () => {
+      return await generateText({
+        model: anthropic("claude-sonnet-4-5"),
+        prompt: finalPrompt,
+      });
     });
   },
 );
