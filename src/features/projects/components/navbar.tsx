@@ -2,7 +2,6 @@
 
 import { Id } from "../../../../convex/_generated/dataModel";
 import { Button } from "@/components/ui/button";
-import { Poppins } from "next/font/google";
 import Link from "next/link";
 
 import {
@@ -22,17 +21,10 @@ import {
 import { CloudCheckIcon, Loader2Icon } from "lucide-react";
 
 import Image from "next/image";
-import { cn } from "@/lib/utils";
 import { UserButton } from "@clerk/nextjs";
 import { useProject, useRenameProject } from "@/features/hooks/use-projects";
 import { useState } from "react";
 import { formatDistanceToNow } from "date-fns";
-
-const font = Poppins({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-poppins",
-});
 
 export const Navbar = ({ projectId }: { projectId: Id<"projects"> }) => {
   const project = useProject(projectId);
@@ -81,7 +73,7 @@ export const Navbar = ({ projectId }: { projectId: Id<"projects"> }) => {
                       width={20}
                       height={20}
                     />
-                    <span className={cn("font-bold text-lg", font.className)}>
+                    <span className="font-bold text-lg font-sans">
                       Nerdbox
                     </span>
                   </Link>

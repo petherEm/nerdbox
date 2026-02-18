@@ -1,6 +1,5 @@
 "use client";
 
-import { Poppins } from "next/font/google";
 import Image from "next/image";
 
 import {
@@ -9,8 +8,6 @@ import {
   colors,
   uniqueNamesGenerator,
 } from "unique-names-generator";
-
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { SparkleIcon } from "lucide-react";
 import { Kbd } from "@/components/ui/kbd";
@@ -19,12 +16,6 @@ import ProjectsList from "./projects-list";
 import { useCreateProject } from "@/features/hooks/use-projects";
 import { ProjectsCommandDialog } from "./projects-command-dialog";
 import { useEffect, useState } from "react";
-
-const font = Poppins({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-poppins",
-});
 
 export const ProjectsView = () => {
   const createProject = useCreateProject();
@@ -56,10 +47,7 @@ export const ProjectsView = () => {
             <div className="flex justify-between gap-4 w-full items-center">
               <Image src="/vercel.svg" alt="Logo" width={32} height={32} />
               <h1
-                className={cn(
-                  "text-4xl md:text-5xl font-semibold",
-                  font.variable,
-                )}
+                className="text-4xl md:text-5xl font-semibold font-sans"
               >
                 NerdBox
               </h1>

@@ -1,17 +1,23 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Mono, Inter } from "next/font/google";
+import { Oxanium, Source_Code_Pro, Source_Serif_4 } from "next/font/google";
 
 import { Providers } from "@/components/providers";
 
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter-sans",
+const oxanium = Oxanium({
+  variable: "--font-oxanium",
   subsets: ["latin"],
 });
 
-const plexMono = IBM_Plex_Mono({
-  variable: "--font-plex-mono",
+const sourceCodePro = Source_Code_Pro({
+  variable: "--font-source-code",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
+
+const sourceSerif = Source_Serif_4({
+  variable: "--font-source-serif",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 });
@@ -28,7 +34,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${plexMono.variable} antialiased`}>
+      <body className={`${oxanium.variable} ${sourceCodePro.variable} ${sourceSerif.variable} antialiased`}>
         <Providers>{children}</Providers>
       </body>
     </html>

@@ -7,7 +7,7 @@ import { FaGithub } from "react-icons/fa";
 import { cn } from "@/lib/utils";
 // import { EditorView } from "@/features/editor/components/editor-view";
 
-// import { FileExplorer } from "./file-explorer";
+import { FileExplorer } from "./file-explorer";
 import { Id } from "../../../../convex/_generated/dataModel";
 // import { PreviewView } from "./preview-view";
 // import { ExportPopover } from "./export-popover";
@@ -73,10 +73,11 @@ export const ProjectIdView = ({ projectId }: { projectId: Id<"projects"> }) => {
               maxSize={MAX_SIDEBAR_WIDTH}
               preferredSize={DEFAULT_SIDEBAR_WIDTH}
             >
-              {/* <FileExplorer projectId={projectId} /> */}
+              <FileExplorer projectId={projectId} />
             </Allotment.Pane>
             <Allotment.Pane>
               {/* <EditorView projectId={projectId} /> */}
+              EditorView
             </Allotment.Pane>
           </Allotment>
         </div>
